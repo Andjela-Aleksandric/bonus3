@@ -146,26 +146,26 @@
                         <h3 class="modal-title text-center">Izmeni kolokvijum</h3>
                     </div>
                     <div class="modal-body">
-                        <form action="#" method="post" id="izmeniForm">
-                            <input id="id_predmeta" type="hidden" name="id_predmeta" readonly>
-                            <div class="form-group">
-                                <label>Predmet</label>
-                                <input id="predmet" type="text" name="predmet" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Katedra</label>
-                                <input id="katedra" type="text" name="katedra" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Sala</label>
-                                <input id="sala" type="text" name="sala" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Datum</label>
-                                <input id="datum" type="date" name="datum" class="form-control" required>
-                            </div>
-                            <button type="submit" name="submit" value="izmeni" id="btnIzmeniModal" class="btn btn-success btn-block">Izmeni</button>
-                        </form>
+                    <form action="handler/update.php" method="post" id="izmeniForm">
+                        <input id="id_predmeta" type="hidden" name="id_predmeta" readonly>
+                        <div class="form-group">
+                            <label>Predmet</label>
+                            <input id="predmet" type="text" name="predmet" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Katedra</label>
+                            <input id="katedra" type="text" name="katedra" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Sala</label>
+                            <input id="sala" type="text" name="sala" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Datum</label>
+                            <input id="datum" type="date" name="datum" class="form-control" required>
+                        </div>
+                        <button type="submit" name="submit" value="izmeni" id="btnIzmeniModal" class="btn btn-success btn-block">Izmeni</button>
+                    </form>
                     </div>
                 </div>
             </div>
@@ -176,27 +176,31 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <script>
-        // Omogućavanje dugmadi kada je selektovan radio button
-        $('input[name="id_predmeta"]').on('change', function() {
-            $('#btn-izmeni').prop('disabled', false);
-            $('#btn-obrisi').prop('disabled', false);
+    <script>        
+    $('input[name="id_predmeta"]').on('change', function() {
+    $('#btn-izmeni').prop('disabled', false);
+    $('#btn-obrisi').prop('disabled', false);
 
-            let selectedRow = $(this).closest('tr');
+    let selectedRow = $(this).closest('tr');
 
-            let predmet = selectedRow.find('td:eq(0)').text();
-            let katedra = selectedRow.find('td:eq(1)').text();
-            let sala = selectedRow.find('td:eq(2)').text();
-            let datum = selectedRow.find('td:eq(3)').text();
+    let predmet = selectedRow.find('td:eq(0)').text();
+    let katedra = selectedRow.find('td:eq(1)').text();
+    let sala = selectedRow.find('td:eq(2)').text();
+    let datum = selectedRow.find('td:eq(3)').text();
 
-            // let id = $(this).val();
+    // Ako datum nije u formatu YYYY-MM-DD, potrebno ga je formatirati
+    let formattedDate = new Date(datum).toISOString().split('T')[0];
 
-            // $('#id_predmeta').val(id);
-            // $('#predmet').val(predmet);
-            // $('#katedra').val(katedra);
-            // $('#sala').val(sala);
-            // $('#datum').val(datum);
-        });
+    let id = $(this).val(); // ID izabrane prijave
+
+    $('#id_predmeta').val(id); // Setovanje ID
+    $('#predmet').val(predmet); // Setovanje predmet
+    $('#katedra').val(katedra); // Setovanje katedra
+    $('#sala').val(sala); // Setovanje sala
+    $('#datum').val(formattedDate); // Setovanje datum u pravom formatu
+});
+
+        
     </script>
 </body>
 
